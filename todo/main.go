@@ -1,5 +1,3 @@
-//test 2
-
 package main
 
 import (
@@ -57,7 +55,11 @@ const (
 //						   use it.  See github.com/spf13/cobra for information
 //						   on how to use it.
 //
-//	 YOUR ANSWER: <GOES HERE>
+//	 YOUR ANSWER: processCmdLineFlags starts by setting all possible flags with their type and initial value
+//				  along with a help message for the flag.  The flag.Parse() function then splits the command
+//				  line flags into the different entries of the flag.Args() slice.  It then reads each flag
+//				  and sets the appropriate state in accordance with the usage of the flag.  Ultimately, the
+//				  function returns the appOpt state and an error if applicable.
 func processCmdLineFlags() (AppOptType, error) {
 	flag.StringVar(&dbFileNameFlag, "db", "./data/todo.json", "Name of the database file")
 
@@ -145,7 +147,7 @@ func main() {
 	//function in the db package
 	switch opts {
 	case LIST_DB_ITEM:
-		fmt.Println("Running QUERY_DB_ITEM...")
+		fmt.Println("Running LIST_DB_ITEM...")
 		todoList, err := todo.GetAllItems()
 		if err != nil {
 			fmt.Println("Error: ", err)
