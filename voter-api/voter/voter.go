@@ -23,6 +23,7 @@ type VoterList struct {
 // constructor for VoterList struct
 func NewVoter(id uint, fn, ln string) *Voter {
 	return &Voter{
+		VoterID:     id,
 		FirstName:   fn,
 		LastName:    ln,
 		VoteHistory: []voterPoll{},
