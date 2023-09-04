@@ -1,0 +1,247 @@
+*2
+$6
+SELECT
+$1
+0
+*1
+$7
+flushdb
+*4
+$8
+json.set
+$6
+todo:1
+$1
+$
+$56
+{"id": 1,"title": "Learn Cloud Platforms","done": false}
+*4
+$8
+json.set
+$6
+todo:2
+$1
+$
+$45
+{"id": 2,"title": "Learn APIs","done": false}
+*4
+$8
+json.set
+$6
+todo:3
+$1
+$
+$77
+{"id": 3,"title": "You should be a little better at go by now","done": false}
+*4
+$8
+json.set
+$6
+todo:4
+$1
+$
+$58
+{"id": 4,"title": "Learn Cloud Engineering","done": false}
+*4
+$8
+json.set
+$6
+todo:5
+$1
+$
+$65
+{"id": 5,"title": "Initialize containers properly","done": false}
+*2
+$6
+SELECT
+$1
+0
+*1
+$7
+flushdb
+*4
+$8
+json.set
+$6
+todo:1
+$1
+$
+$56
+{"id": 1,"title": "Learn Cloud Platforms","done": false}
+*4
+$8
+json.set
+$6
+todo:2
+$1
+$
+$45
+{"id": 2,"title": "Learn APIs","done": false}
+*4
+$8
+json.set
+$6
+todo:3
+$1
+$
+$77
+{"id": 3,"title": "You should be a little better at go by now","done": false}
+*4
+$8
+json.set
+$6
+todo:4
+$1
+$
+$58
+{"id": 4,"title": "Learn Cloud Engineering","done": false}
+*4
+$8
+json.set
+$6
+todo:5
+$1
+$
+$65
+{"id": 5,"title": "Initialize containers properly","done": false}
+*2
+$6
+SELECT
+$1
+0
+*1
+$7
+flushdb
+*4
+$8
+json.set
+$6
+todo:1
+$1
+$
+$56
+{"id": 1,"title": "Learn Cloud Platforms","done": false}
+*4
+$8
+json.set
+$6
+todo:2
+$1
+$
+$45
+{"id": 2,"title": "Learn APIs","done": false}
+*4
+$8
+json.set
+$6
+todo:3
+$1
+$
+$77
+{"id": 3,"title": "You should be a little better at go by now","done": false}
+*4
+$8
+json.set
+$6
+todo:4
+$1
+$
+$58
+{"id": 4,"title": "Learn Cloud Engineering","done": false}
+*4
+$8
+json.set
+$6
+todo:5
+$1
+$
+$65
+{"id": 5,"title": "Initialize containers properly","done": false}
+*2
+$6
+SELECT
+$1
+0
+*1
+$7
+flushdb
+*4
+$8
+json.set
+$8
+voters:1
+$1
+$
+$57
+{"voter_id": 1, "first_name": "John", "last_name": "Doe"}
+*4
+$8
+json.set
+$8
+voters:2
+$1
+$
+$57
+{"voter_id": 2, "first_name": "Jane", "last_name": "Doe"}
+*4
+$8
+json.set
+$8
+voters:3
+$1
+$
+$55
+{"voter_id": 3, "first_name": "Matt", "last_name": "S"}
+*4
+$8
+json.set
+$16
+voters:3:polls:1
+$1
+$
+$49
+{"voter_id": 3, "vote_history": [{"poll_id": 0}]}
+*2
+$6
+SELECT
+$1
+0
+*1
+$7
+flushdb
+*4
+$8
+json.set
+$10
+voter_id:1
+$1
+$
+$57
+{"voter_id": 1, "first_name": "John", "last_name": "Doe"}
+*4
+$8
+json.set
+$10
+voter_id:2
+$1
+$
+$57
+{"voter_id": 2, "first_name": "Jane", "last_name": "Doe"}
+*4
+$8
+json.set
+$10
+voter_id:3
+$1
+$
+$55
+{"voter_id": 3, "first_name": "Matt", "last_name": "S"}
+*4
+$8
+json.set
+$20
+voter_id:3:poll_id:1
+$1
+$
+$49
+{"voter_id": 3, "vote_history": [{"poll_id": 0}]}
