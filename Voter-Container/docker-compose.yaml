@@ -8,7 +8,7 @@ services:
       - 6379:6379
       - 8001:8001
   voter-api:
-    image: voter-api:v1
+    image: voter-api:v2
     container_name: voter-api-1
     restart: always
     ports:

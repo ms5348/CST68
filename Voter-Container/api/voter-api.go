@@ -1,29 +1,29 @@
 package api
 
 import (
-	"encoding/json"
 	"log"
 	"net/http"
 	"strconv"
 
-	"voter-api-starter/voter"
+	"Voter-Container/voter"
 
 	"github.com/gin-gonic/gin"
 )
 
-type VoterApi struct {
-	voterList voter.VoterList
+type VoterAPI struct {
+	voter *voter.VoterCache
 }
 
-func NewVoterApi() *VoterApi {
-	return &VoterApi{
-		voterList: voter.VoterList{
-			Voters: make(map[uint]voter.Voter),
-		},
+func New() (*VoterAPI, error) {
+	voterHandler, err := voter.New()
+	if err != nil {
+		return nil, err
 	}
+
+	return &VoterAPI{voter: voterHandler}, nil
 }
 
-func (v *VoterApi) AddVoter(c *gin.Context) {
+func (v *VoterAPI) AddVoter(c *gin.Context) {
 	var newVoter voter.Voter
 
 	if err := c.ShouldBindJSON(&newVoter); err != nil {
@@ -32,65 +32,34 @@ func (v *VoterApi) AddVoter(c *gin.Context) {
 		return
 	}
 
-	// Note: if the body of the POST request contains a VoterID key value, the following stores newVoter
-	//		with the Post parameter (:id). The actual POST would use the key value though.
-	idS := c.Param("id")
-	id64, _ := strconv.ParseInt(idS, 10, 32)
-
-	v.voterList.Voters[uint(id64)] = *voter.NewVoter(uint(id64), newVoter.FirstName, newVoter.LastName)
+	if err := v.voter.AddVoter(newVoter); err != nil {
+		log.Println("Error adding voter: ", err)
+		c.AbortWithStatus(http.StatusConflict)
+		return
+	}
 
 	c.JSON(http.StatusOK, newVoter)
 }
 
-func (v *VoterApi) AddPoll(c *gin.Context) {
-	idS := c.Param("id")
-	pollIDS := c.Param("pollid")
-	id64, err := strconv.ParseInt(idS, 10, 32)
-	if err != nil {
-		log.Println("Error converting id to int64: ", err)
-		c.AbortWithStatus(http.StatusBadRequest)
-		return
-	}
-	pollID64, err := strconv.ParseInt(pollIDS, 10, 32)
-	if err != nil {
-		log.Println("Error converting poll id to int64: ", err)
-		c.AbortWithStatus(http.StatusBadRequest)
-		return
-	}
-	voter := v.voterList.Voters[uint(id64)]
-	voter.AddPoll(uint(pollID64))
-	v.voterList.Voters[uint(id64)] = voter
-}
+func (v *VoterAPI) AddPoll(c *gin.Context) {
+	var voter voter.Voter
 
-func (v *VoterApi) GetVoter(c *gin.Context) {
-	idS := c.Param("id")
-	id64, err := strconv.ParseInt(idS, 10, 32)
-	if err != nil {
-		log.Println("Error converting id to int64: ", err)
+	if err := c.ShouldBindJSON(&voter); err != nil {
+		log.Println("Error binding JSON: ", err)
 		c.AbortWithStatus(http.StatusBadRequest)
 		return
 	}
 
-	voter := v.voterList.Voters[uint(id64)]
+	if err := v.voter.AddPoll(voter); err != nil {
+		log.Println("Error adding poll: ", err)
+		c.AbortWithStatus(http.StatusBadRequest)
+		return
+	}
 
 	c.JSON(http.StatusOK, voter)
 }
 
-func (v *VoterApi) GetVoterJson(voterID uint) string {
-	voter := v.voterList.Voters[voterID]
-	return voter.ToJson()
-}
-
-func (v *VoterApi) GetVoterList(c *gin.Context) {
-	c.JSON(http.StatusOK, v.voterList)
-}
-
-func (v *VoterApi) GetVoterListJson() string {
-	b, _ := json.Marshal(v.voterList)
-	return string(b)
-}
-
-func (v *VoterApi) GetPolls(c *gin.Context) {
+func (v *VoterAPI) GetVoter(c *gin.Context) {
 	idS := c.Param("id")
 	id64, err := strconv.ParseInt(idS, 10, 32)
 	if err != nil {
@@ -99,12 +68,51 @@ func (v *VoterApi) GetPolls(c *gin.Context) {
 		return
 	}
 
-	polls := v.voterList.Voters[uint(id64)].VoteHistory
+	voter, err := v.voter.GetVoter(uint(id64))
+	if err != nil {
+		log.Println("Voter not found: ", err)
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
+
+	c.JSON(http.StatusOK, voter)
+}
+
+func (v *VoterAPI) GetVoterList(c *gin.Context) {
+	voterList, err := v.voter.GetAllVoters()
+	if err != nil {
+		log.Println("Error Getting All Voters: ", err)
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
+
+	if voterList == nil {
+		voterList = make([]voter.Voter, 0)
+	}
+
+	c.JSON(http.StatusOK, voterList)
+}
+
+func (v *VoterAPI) GetPolls(c *gin.Context) {
+	idS := c.Param("id")
+	id64, err := strconv.ParseInt(idS, 10, 32)
+	if err != nil {
+		log.Println("Error converting id to int64: ", err)
+		c.AbortWithStatus(http.StatusBadRequest)
+		return
+	}
+
+	polls, err := v.voter.GetPolls(uint(id64))
+	if err != nil {
+		log.Println("Voter not found: ", err)
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
 
 	c.JSON(http.StatusOK, polls)
 }
 
-func (v *VoterApi) GetPoll(c *gin.Context) {
+func (v *VoterAPI) GetPoll(c *gin.Context) {
 	idS := c.Param("id")
 	pollIDS := c.Param("pollid")
 	id64, err := strconv.ParseInt(idS, 10, 32)
@@ -120,12 +128,17 @@ func (v *VoterApi) GetPoll(c *gin.Context) {
 		return
 	}
 
-	poll := v.voterList.Voters[uint(id64)].VoteHistory[uint(pollID64)]
+	poll, err := v.voter.GetPoll(uint(id64), uint(pollID64))
+	if err != nil {
+		log.Println("Voter or Poll not found: ", err)
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}
 
 	c.JSON(http.StatusOK, poll)
 }
 
-func (v *VoterApi) HealthCheck(c *gin.Context) {
+func (v *VoterAPI) HealthCheck(c *gin.Context) {
 	c.JSON(http.StatusOK,
 		gin.H{
 			"status":             "ok",
