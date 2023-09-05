@@ -1,5 +1,3 @@
-## Final Assingment - Voting Application
+## CST680 - Cloud Native Software Engineering Repository
 
-This folder contains my final assignment for CST680 - Cloud Native Software Engineering
-
-To initialize my project, first run ./build-all-docker.sh then you can start and stop using docker compose up/down
+This contains all of my submitted programming assignments for my CNSE class at Drexel University
