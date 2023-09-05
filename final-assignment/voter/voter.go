@@ -190,3 +190,14 @@ func (v *Voter) ToJson() string {
 	b, _ := json.Marshal(v)
 	return string(b)
 }
+
+func NewSampleVoter() *Voter {
+	return &Voter{
+		VoterID:   1,
+		FirstName: "John",
+		LastName:  "Doe",
+		VoteHistory: []voterPoll{
+			{PollID: 1, VoteDate: time.Now()},
+		},
+	}
+}
