@@ -166,7 +166,7 @@ func (v *VotesAPI) GetItemFromVote(c *gin.Context) {
 	if idxKey == "voter_id" {
 		voterLocation := vote.Items.VoterID
 
-		voterURL := v.voterAPIURL + strconv.FormatUint(uint64(voterLocation), 10)
+		voterURL := v.voterAPIURL + "/" + strconv.FormatUint(uint64(voterLocation), 10)
 		var voter votes.Voter
 
 		_, err = v.apiClient.R().SetResult(&voter).Get(voterURL)
@@ -177,12 +177,13 @@ func (v *VotesAPI) GetItemFromVote(c *gin.Context) {
 		}
 
 		c.JSON(http.StatusOK, voter)
+		return
 	}
 
 	if idxKey == "poll_id" {
 		pollLocation := vote.Items.PollID
 
-		pollURL := v.pollAPIURL + strconv.FormatUint(uint64(pollLocation), 10)
+		pollURL := v.pollAPIURL + "/" + strconv.FormatUint(uint64(pollLocation), 10)
 		var poll votes.Poll
 
 		_, err = v.apiClient.R().SetResult(&poll).Get(pollURL)
@@ -193,10 +194,10 @@ func (v *VotesAPI) GetItemFromVote(c *gin.Context) {
 		}
 
 		c.JSON(http.StatusOK, poll)
+		return
 	}
 
 	c.JSON(http.StatusBadRequest, gin.H{"error": "Incorrect index provided"})
-	return
 }
 
 func (v *VotesAPI) getItemFromRedis(key string, vote *votes.Vote) error {

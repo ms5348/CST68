@@ -3,12 +3,9 @@ package votes
 import "time"
 
 type Vote struct {
-	VoteID uint `json:"vote_id"`
-	//VoterID   uint `json:"voter_id"`
-	//PollID    uint `json:"poll_id"`
+	VoteID    uint  `json:"vote_id"`
 	VoteValue uint  `json:"vote_value"`
 	Items     items `json:"items"`
-	//Items       map[string]string `json:"items,omitempty"`
 }
 
 type items struct {

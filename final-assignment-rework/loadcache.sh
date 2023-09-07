@@ -2,7 +2,7 @@
 curl -d '{ "voter_id": 1, "first_name": "John", "last_name": "Doe" }' -H "Content-Type: application/json" -X POST http://localhost:1080/voters/1 
 curl -d '{ "voter_id": 2, "first_name": "Jane", "last_name": "Doe"}' -H "Content-Type: application/json" -X POST http://localhost:1080/voters/2 
 curl -d '{ "voter_id": 3, "first_name": "Matt", "last_name": "S"}' -H "Content-Type: application/json" -X POST http://localhost:1080/voters/3
-curl -d '{ "voter_id": 3, "vote_history": [{"poll_id": 1}]}' -H "Content-Type: application/json" -X POST http://localhost:1080/voters/3/polls/1	
+curl -d '{ "voter_id": 3, "first_name": "Matt", "last_name": "S", "vote_history": [{"poll_id": 1}]}' -H "Content-Type: application/json" -X POST http://localhost:1080/voters/3/polls/1	
 
 curl -d '{ "poll_id": 1, "poll_title": "Favorite Pet", "poll_question": "What type of pet do you like best?" }' -H "Content-Type: application/json" -X POST http://localhost:1082/poll/1 
 curl -d '{ "poll_id": 2, "poll_title": "Favorite Color", "poll_question": "What color do you like best?" }' -H "Content-Type: application/json" -X POST http://localhost:1082/poll/2

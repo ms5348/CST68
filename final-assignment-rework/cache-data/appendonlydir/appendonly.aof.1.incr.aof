@@ -37,8 +37,8 @@ $7
 voter:3
 $1
 .
-$111
-{"voter_id":3,"first_name":"","last_name":"","vote_history":[{"poll_id":1,"vote_date":"0001-01-01T00:00:00Z"}]}
+$116
+{"voter_id":3,"first_name":"Matt","last_name":"S","vote_history":[{"poll_id":1,"vote_date":"0001-01-01T00:00:00Z"}]}
 *4
 $8
 JSON.SET
@@ -73,8 +73,8 @@ $6
 vote:1
 $1
 .
-$53
-{"vote_id":1,"voter_id":1,"poll_id":1,"vote_value":1}
+$63
+{"vote_id":1,"vote_value":1,"items":{"voter_id":1,"poll_id":1}}
 *4
 $8
 JSON.SET
@@ -82,8 +82,8 @@ $6
 vote:2
 $1
 .
-$53
-{"vote_id":2,"voter_id":1,"poll_id":2,"vote_value":2}
+$63
+{"vote_id":2,"vote_value":2,"items":{"voter_id":1,"poll_id":2}}
 *4
 $8
 JSON.SET
@@ -91,8 +91,8 @@ $6
 vote:3
 $1
 .
-$53
-{"vote_id":3,"voter_id":2,"poll_id":1,"vote_value":2}
+$63
+{"vote_id":3,"vote_value":2,"items":{"voter_id":2,"poll_id":1}}
 *4
 $8
 JSON.SET
@@ -100,8 +100,8 @@ $6
 vote:4
 $1
 .
-$53
-{"vote_id":4,"voter_id":2,"poll_id":2,"vote_value":1}
+$63
+{"vote_id":4,"vote_value":1,"items":{"voter_id":2,"poll_id":2}}
 *2
 $6
 SELECT
@@ -115,4 +115,4 @@ vote:5
 $1
 .
 $63
-{"vote_id":5,"vote_value":1,"items":{"voter_id":1,"poll_id":1}}
+{"vote_id":5,"vote_value":1,"items":{"voter_id":3,"poll_id":2}}

@@ -64,7 +64,7 @@ func main() {
 	r := gin.Default()
 	r.Use(cors.Default())
 
-	voterAPI, err := api.New()
+	voterAPI, err := api.NewVoterAPI(cacheURL)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
