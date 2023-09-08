@@ -70,7 +70,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	pAPI, err := api.NewPollAPI()
+	pAPI, err := api.NewPollAPI(cacheURL)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -93,8 +93,8 @@ func main() {
 	r.GET("/poll/:id", pAPI.GetPoll)
 	r.POST("/poll/:id", pAPI.AddPoll)
 	r.GET("/poll/:id/polloptions", pAPI.GetPollOptions)
-	//rPoll.GET("/poll/:id/polloptions/:pollid", pAPI.GetPollOption)
-	//rPoll.POST("/poll/:id/polloptions/:pollid", pAPI.AddPollOption)
+	r.GET("/poll/:id/polloptions/:pollid", pAPI.GetPollOption)
+	r.POST("/poll/:id/polloptions/:pollid", pAPI.AddPollOption)
 	r.GET("/poll/health", pAPI.HealthCheck)
 
 	r.GET("/votes", votesAPI.GetVotesList)

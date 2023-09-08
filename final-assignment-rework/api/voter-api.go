@@ -14,12 +14,6 @@ import (
 	"github.com/nitishm/go-rejson/v4"
 )
 
-type voterCache struct {
-	client  *redis.Client
-	helper  *rejson.Handler
-	context context.Context
-}
-
 type VoterAPI struct {
 	cache
 }
@@ -220,7 +214,7 @@ func (v *VoterAPI) GetPoll(c *gin.Context) {
 		}
 	}
 
-	c.JSON(http.StatusNotFound, gin.H{"error": "Could not find voter in cache with id=" + pollIDS})
+	c.JSON(http.StatusNotFound, gin.H{"error": "Could not find poll in cache with id=" + pollIDS})
 }
 
 func (v *VoterAPI) HealthCheck(c *gin.Context) {
