@@ -73,8 +73,8 @@ $6
 poll:1
 $1
 .
-$101
-{"poll_id":1,"poll_title":"","poll_question":"","poll_options":[{"option_id":1,"option_text":"Dog"}]}
+$147
+{"poll_id":1,"poll_title":"Favorite Pet","poll_question":"What type of pet do you like best?","poll_options":[{"option_id":1,"option_text":"Dog"}]}
 *4
 $8
 JSON.SET
@@ -82,8 +82,8 @@ $6
 poll:1
 $1
 .
-$101
-{"poll_id":1,"poll_title":"","poll_question":"","poll_options":[{"option_id":2,"option_text":"Cat"}]}
+$183
+{"poll_id":1,"poll_title":"Favorite Pet","poll_question":"What type of pet do you like best?","poll_options":[{"option_id":1,"option_text":"Dog"},{"option_id":2,"option_text":"Cat"}]}
 *4
 $8
 JSON.SET
@@ -91,8 +91,8 @@ $6
 poll:2
 $1
 .
-$101
-{"poll_id":2,"poll_title":"","poll_question":"","poll_options":[{"option_id":1,"option_text":"Red"}]}
+$143
+{"poll_id":2,"poll_title":"Favorite Color","poll_question":"What color do you like best?","poll_options":[{"option_id":1,"option_text":"Red"}]}
 *4
 $8
 JSON.SET
@@ -100,8 +100,8 @@ $6
 poll:2
 $1
 .
-$102
-{"poll_id":2,"poll_title":"","poll_question":"","poll_options":[{"option_id":2,"option_text":"Blue"}]}
+$180
+{"poll_id":2,"poll_title":"Favorite Color","poll_question":"What color do you like best?","poll_options":[{"option_id":1,"option_text":"Red"},{"option_id":2,"option_text":"Blue"}]}
 *4
 $8
 JSON.SET
